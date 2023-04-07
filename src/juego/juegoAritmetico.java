@@ -65,17 +65,18 @@ public class juegoAritmetico {
 	}
 
 	// Visualizar por consola la matriz generada
-	public void getMatriz() {
-		String filita = "[";
-
-		for (int fila = 0; fila < matrizJuego.length; fila++) {
-			for (int col = 0; col < matrizJuego[0].length; col++) {
-				filita += matrizJuego[fila][col] + ",";
-			}
-			filita += "]";
-			System.out.println(filita);
-			filita = "[";
-		}
+	public int[][] getMatriz() {
+		return matrizJuego;
+//		String filita = "[";
+//
+//		for (int fila = 0; fila < matrizJuego.length; fila++) {
+//			for (int col = 0; col < matrizJuego[0].length; col++) {
+//				filita += matrizJuego[fila][col] + ",";
+//			}
+//			filita += "]";
+//			System.out.println(filita);
+//			filita = "[";
+//		}
 	}
 
 	// Main para ejecutar provisoriamente los metodos de la clase

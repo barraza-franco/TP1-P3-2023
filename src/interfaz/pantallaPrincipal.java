@@ -1,11 +1,17 @@
 package interfaz;
 
+import java.awt.Color;
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import javax.swing.JFrame;
 import javax.swing.JTextField;
 import javax.swing.JLabel;
 import javax.swing.SwingConstants;
+
+import juego.juegoAritmetico;
+
 import javax.swing.JButton;
 
 public class pantallaPrincipal {
@@ -27,6 +33,10 @@ public class pantallaPrincipal {
 	private JTextField fila3Col1;
 	private JTextField fila3Col2;
 	private JTextField fila3Col3;
+	
+	// Variables de ejemplo, despues borrar
+	private JTextField nombreField;
+	private JLabel lblsaludo;
 
 	/**
 	 * Launch the application.
@@ -48,13 +58,14 @@ public class pantallaPrincipal {
 	 * Create the application.
 	 */
 	public pantallaPrincipal() {
-		initialize();
+		juegoAritmetico matriz= new juegoAritmetico(4);
+		initialize(matriz.getMatriz());
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
-	private void initialize() {
+	private void initialize(int[][] matrizJuego) {
 		frame = new JFrame();
 		frame.setBounds(100, 100, 450, 300);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -179,5 +190,30 @@ public class pantallaPrincipal {
 		JButton btnEnviar = new JButton("Enviar");
 		btnEnviar.setBounds(335, 227, 89, 23);
 		frame.getContentPane().add(btnEnviar);
+		
+		
+		
+		// Elementos de ejemplo
+		
+		nombreField = new JTextField();
+		nombreField.setBounds(82, 8, 86, 20);
+		frame.getContentPane().add(nombreField);
+		nombreField.setColumns(10);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(79, 144, 89, 23);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		lblsaludo = new JLabel("");
+		lblsaludo.setBounds(94, 94, 46, 14);
+		frame.getContentPane().add(lblsaludo);
+		
+		btnNewButton_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				String nombre = nombreField.getText();
+				lblsaludo.setText(nombre);
+				nombreField.setBackground(Color.BLACK);
+			}
+		});
 	}
 }
