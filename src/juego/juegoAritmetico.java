@@ -12,22 +12,40 @@ public class juegoAritmetico {
 		inicializarMatriz();
 	}
 
-	// Randomizar valor de ultimo elemento de fila y de columna
 	// Inicializa la matriz junto el numero a conseguir sumar por fila y columna
 	private void inicializarMatriz() {
-		for (int fila = 0; fila < matrizJuego.length - 1; fila++) {
-			for (int col = 0; col < matrizJuego[0].length - 1; col++) {
-				matrizJuego[fila][col] = 0;
+		do {
+			for (int fila = 0; fila < matrizJuego.length - 1; fila++) {
+				for (int col = 0; col < matrizJuego[0].length - 1; col++) {
+					matrizJuego[fila][col] = 0;
 
-				matrizJuego[matrizJuego.length - 1][col] = 3; // Valores de el ultimo elemento de la columna que se debe
-																// conseguir sumar
+					matrizJuego[matrizJuego.length - 1][col] = (int)(Math.random() * (11 - 4)) + 4; // Valores de el ultimo elemento de la columna que se debe
+				}
+
+				matrizJuego[fila][matrizJuego.length - 1] = (int)(Math.random() * (11 - 4)) + 4; // Valores de el ultimo elemento de la fila que se debe
 			}
 
-			matrizJuego[fila][matrizJuego.length - 1] = 2; // Valores de el ultimo elemento de la fila que se debe
-															// conseguir sumar
-		}
+	    } while (sumaUltimaFila()!= sumaUltimaColumna());
 	}
 
+    public int sumaUltimaFila() {
+        int suma = 0;
+        for (int i =0 ; i< matrizJuego.length; i++) {
+            suma += matrizJuego[4][i];
+        }
+
+        return suma;
+    }
+
+    public int sumaUltimaColumna() {
+        int suma = 0;
+        for (int i =0 ; i< matrizJuego.length; i++) {
+            suma += matrizJuego[i][4];
+        }
+
+        return suma;
+    }
+    
 	// Verifica si la suma de los valores de la fila indicada por
 	// parametro es igual al ultimo elemento de la misma
 	private boolean verificarFila(int fila) {
@@ -63,30 +81,15 @@ public class juegoAritmetico {
 
 		return sumaFilas && sumaColumnas;
 	}
+	
+	// Realiza un set de un entero en la posicion indicada de la matriz
+	public void setElementoEnMatriz(int fila, int col, int valor) {
+		matrizJuego[fila][col] = valor;
+	}
 
-	// Visualizar por consola la matriz generada
+	// Retorna la matriz del juego
 	public int[][] getMatriz() {
 		return matrizJuego;
-//		String filita = "[";
-//
-//		for (int fila = 0; fila < matrizJuego.length; fila++) {
-//			for (int col = 0; col < matrizJuego[0].length; col++) {
-//				filita += matrizJuego[fila][col] + ",";
-//			}
-//			filita += "]";
-//			System.out.println(filita);
-//			filita = "[";
-//		}
 	}
-
-	// Main para ejecutar provisoriamente los metodos de la clase
-	public static void main(String[] args) {
-
-		juegoAritmetico juego = new juegoAritmetico(4);
-		juego.getMatriz();
-
-//		System.out.println(juego.verificarFila(0));
-//		System.out.println(juego.verificarColumna(0));
-//		System.out.println(juego.verificarEstadoDelJuego());
-	}
+	
 }
