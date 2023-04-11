@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Calendar;
 
 import javax.swing.JFrame;
 import javax.swing.JTextPane;
@@ -36,6 +37,9 @@ public class pantallaPrincipal {
 	private JTextField fila3Col2;
 	private JTextField fila3Col3;
 	private JLabel msjErrorCamposVacios;
+	private JLabel lblClock;
+	private int minutos = 0;
+	private int segundos = 0;
 
 	/**
 	 * Launch the application.
@@ -59,8 +63,31 @@ public class pantallaPrincipal {
 	public pantallaPrincipal() {
 		juegoAritmetico matriz= new juegoAritmetico(4);
 		initialize(matriz.getMatriz(), matriz);
+		clock();
+		
 	}
 
+	
+	public void clock() {
+	    	Thread clock = new Thread() {
+	    		public void run() {
+	    			try {
+	    				while (true) {
+	    					segundos ++;
+	    					if(segundos>=60) {
+	    						minutos ++;
+	    						segundos = 0;
+	    					}
+	    					lblClock.setText("Tiempo: " +minutos +":"+segundos);
+	    					sleep(1000);
+	    				}
+	    			} catch(InterruptedException e) {
+	    				e.printStackTrace();
+	    			}
+	    		}
+	    	};
+	    	clock.start();
+	    }
 	/**
 	 * Initialize the contents of the frame.
 	 */
@@ -203,6 +230,13 @@ public class pantallaPrincipal {
         msjErrorCamposVacios.setVisible(false);
         frame.getContentPane().add(msjErrorCamposVacios);
         
+        lblClock = new JLabel("New label");
+        lblClock.setFont(new Font("Tahoma", Font.BOLD, 14));
+        lblClock.setBounds(296, 33, 114, 14);
+        frame.getContentPane().add(lblClock);
+        
+        
+        
 		btnEnviar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				// Primer fila
@@ -262,9 +296,10 @@ public class pantallaPrincipal {
 					msjErrorCamposVacios.setVisible(true);
 				}
 		        if(matriz.verificarEstadoDelJuego()) {
-
+		        	
+		        	lblClock.setVisible(false);
 		            textPane.setVisible(true);
-		            textPane.setText("Felicitaciones ganaste el juego");
+		            textPane.setText("Felicitaciones terminaste el juego en " +minutos +" minutos y "+segundos + " segundos");
 		            frame.getContentPane().add(textPane);
 		            textPane.setEditable(false);
 		            
